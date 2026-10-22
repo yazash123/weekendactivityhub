@@ -1,0 +1,20 @@
+<!-- Weekend hub and poll: paste into ONE Webflow Code Embed, in a full-width section (not a Container). -->
+<div id="hotp-hub-wrap" style="width:100%;margin:0;padding:0">
+  <iframe id="hotp-hub"
+    title="House of the People weekend: the poll and the activities"
+    data-src="https://yazash123.github.io/weekendactivityhub/"
+    allow="clipboard-write"
+    style="display:block;width:100%;height:100vh;height:100dvh;border:0;background:#1C3150"></iframe>
+</div>
+<script>
+(function(){
+  var f=document.getElementById('hotp-hub'), base=f.getAttribute('data-src');
+  // Links: #activities opens the hub, #map the risk map; no hash opens the poll.
+  // The older #iceberg, #drivers, #drivers2 and #missing also open the hub.
+  function pass(){
+    var h=/^#(activities|map|iceberg|drivers|drivers2|missing)$/.test(location.hash)?location.hash:'';
+    if(f.getAttribute('src')!==base+h) f.setAttribute('src',base+h);
+  }
+  pass(); window.addEventListener('hashchange',pass);
+})();
+</script>
