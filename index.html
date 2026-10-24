@@ -1124,23 +1124,8 @@ function launch(k,part){
  if(k==='drivers'){part=part||1;if(partState(part)!=='open')return;}
  var url=String(urlFor(k,part||1)).trim();if(!ready(url)||LAUNCHING||ZOOMING)return;
  if(framed){try{window.open(url,'_blank','noopener');}catch(e){}}
- var poll=$('poll'),pm=$('pmap');
- if(reduced()||!pm.animate){if(!framed)location.href=url;return;}
- LAUNCHING=true;hideCard();light(k);
- poll.hidden=false;poll.classList.add('fly','solo');poll.style.top='0px';
- layoutMap();
- var r0=pm.getBoundingClientRect(),dc=$('core').querySelector('.disc').getBoundingClientRect();
- var W=r0.width,H=r0.height,m=Math.min(W,H),R0=Math.ceil(Math.sqrt(W*W+H*H)/2)+2;
- var dx=(dc.left+dc.width/2)-(r0.left+W/2),dy=(dc.top+dc.height/2)-(r0.top+H/2),sc=dc.width/m;
- var big={transform:'translate(0px,0px) scale(1)',clipPath:'circle('+R0+'px at 50% 50%)',opacity:1};
- var small={transform:'translate('+f1(dx)+'px,'+f1(dy)+'px) scale('+sc.toFixed(4)+')',clipPath:'circle('+f1(m/2)+'px at 50% 50%)',opacity:1};
- var a=pm.animate([small,big],{duration:950,easing:'cubic-bezier(.65,0,.3,1)',fill:'both'});
- LAUNCHA=[a];
- a.onfinish=function(){
-  if(!framed){location.href=url;return;}
-  /* in a frame the activity opened in a new tab: settle back to the activities here */
-  setTimeout(function(){var b=pm.animate([big,{opacity:1,offset:.7},{transform:small.transform,clipPath:small.clipPath,opacity:0}],{duration:700,easing:'cubic-bezier(.65,0,.3,1)',fill:'both'});LAUNCHA.push(b);b.onfinish=endLaunch;},450);
- };
+ /* 24 Oct: no risk-map animation when opening an activity; it only plays from the centre circle */
+ if(!framed)location.href=url;
 }
 var LAUNCHA=[];
 function endLaunch(){
