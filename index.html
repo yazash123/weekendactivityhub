@@ -434,6 +434,9 @@ button{font:inherit;color:inherit}
   .act[data-k="iceberg"] .txt,.act[data-k="drivers"] .txt{margin:0}
   .act .art,.act[data-k="missing"] .art{position:absolute;inset:auto 0 0 auto;width:92%;height:78%;align-self:auto;opacity:.32;--fade:linear-gradient(0deg,#000 30%,transparent 95%)}
 }
+
+/* 24 Oct: the poll has closed. No way back to the form from the activities */
+#toPoll{display:none!important}
 </style>
 <div id="root"></div>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
@@ -1237,7 +1240,7 @@ buildMap();renderPanel();
 var hk=(location.hash||'').slice(1);
 if(hk==='activities'||ACTS.indexOf(hk)>=0||hk==='drivers2')setView('hub');
 else if(hk==='map')setView('map');
-else setView('poll');
+else setView('hub'); /* 24 Oct: the poll has closed, so everyone starts at the activities */
 var RT=null;window.addEventListener('resize',function(){clearTimeout(RT);RT=setTimeout(function(){if(VIEW!=='hub'&&!ZOOMING&&!LAUNCHING)layoutMap();},120);});
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){if(VIEW!=='hub'&&!ZOOMING&&!LAUNCHING)layoutMap();});
 
